@@ -6,7 +6,7 @@
 #pragma comment(lib, "ws2_32.lib")
 #pragma warning(disable: 4996)
 const int PORT = 12345;
-const char* SERVER_IP = "127.0.0.1"; // Use "127.0.0.1" for local testing
+const char* SERVER_IP = "127.0.0.1"; 
 SOCKET Connection;
 const int MAX_BUFFER_SIZE = 1024;
 char buffer[MAX_BUFFER_SIZE];
@@ -16,7 +16,6 @@ struct State {
     int mana = 100;
     int gold = 20;
 };
-
 void clearScreen() {
     system("cls");
 }
@@ -66,7 +65,6 @@ void displayArena(const State& st, const std::vector<std::string>& arenaElements
     std::cout << "----------------------------------------------------------------\n"
         "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
         "\n мана: " << st.mana << "\n золото : " << st.gold << std::endl;
-
     std::cout << "Выбери что ты хочешь сделать в свой ход:\n"
         "1. Построить казарму (30 золота)\n"
         "2. Построить башню (20 золота)\n"
@@ -98,7 +96,7 @@ int main() {
     int choice,spell;
     int msg_size;
     bool flag = true;
-    std::vector<std::string> arenaElements(5, "Пусто"); // Arena with 5 empty slots
+    std::vector<std::string> arenaElements(5, "Пусто"); 
     int buildingIndex;
     WSAData wsaData;
     WORD DLLVersion = MAKEWORD(2, 1);
@@ -130,16 +128,12 @@ int main() {
                 flag = false;
             }
             displayArena(st, arenaElements);
-
             std::cout << "Введите ваш выбор: ";
             std::cin >> choice;
-
-            // Validate input (check if the user entered a number)
             if (std::cin.fail()) {
                 std::cout << "Неверный ввод. Пожалуйста, введите число.\n";
                 std::cin.clear();
             }
-
             if (choice < 1 || choice > 5) 
                 std::cout << "Неверный выбор. Пожалуйста, выберите опцию из списка.\n";
             clearScreen();
