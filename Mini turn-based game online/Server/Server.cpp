@@ -27,7 +27,6 @@ void ClientHandler(int index) {
 }
 
 int main(int argc, char* argv[]) {
-	//WSAStartup
 	WSAData wsaData;
 	WORD DLLVersion = MAKEWORD(2, 1);
 	if (WSAStartup(DLLVersion, &wsaData) != 0) {
