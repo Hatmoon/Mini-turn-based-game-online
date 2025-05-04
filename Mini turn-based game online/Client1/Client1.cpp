@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 #include <vector>
 #include <winsock2.h>
@@ -65,6 +65,7 @@ void displayArena(const State& st, const std::vector<std::string>& arenaElements
     std::cout << "----------------------------------------------------------------\n"
         "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
         "\n мана: " << st.mana << "\n золото : " << st.gold << std::endl;
+
     std::cout << "Выбери что ты хочешь сделать в свой ход:\n"
         "1. Построить казарму (30 золота)\n"
         "2. Построить башню (20 золота)\n"
@@ -72,12 +73,20 @@ void displayArena(const State& st, const std::vector<std::string>& arenaElements
         "4. Заклинания\n"
         "5. Закончить ход\n";
 }
-void buildBuilding(std::vector<std::string>& arenaElements, int buildingIndex, const std::string& buildingName) {
-    if (buildingIndex >= 0 && buildingIndex < arenaElements.size()) {
+int buildBuilding(std::vector<std::string>& arenaElements, int buildingIndex, const std::string& buildingName) {
+    if (buildingIndex >= 0 && buildingIndex < arenaElements.size() && arenaElements[buildingIndex] == "Пусто") {
         arenaElements[buildingIndex] = buildingName;
+        if (buildingName == "Казарма")
+            return 30;
+        else 
+            return 20;
+    }
+    else if(buildingName == "Пусто" && arenaElements[buildingIndex] != "Пусто") {
+        arenaElements[buildingIndex] = buildingName;
+        return 10;
     }
     else {
-        std::cout << "Неверный номер здания.\n";
+        return 0;
     }
 }
 void ClientHandler() {
@@ -93,7 +102,7 @@ void ClientHandler() {
 }
 int main() {
     State st;
-    int choice,spell;
+    int choice,spell, temp;
     int msg_size;
     bool flag = true;
     std::vector<std::string> arenaElements(5, "Пусто"); 
@@ -128,6 +137,7 @@ int main() {
                 flag = false;
             }
             displayArena(st, arenaElements);
+
             std::cout << "Введите ваш выбор: ";
             std::cin >> choice;
             if (std::cin.fail()) {
@@ -147,10 +157,11 @@ int main() {
                         std::cout << "Неверный ввод. Пожалуйста, введите число.\n";
                         std::cin.clear();
                     }
-                    if (arenaElements[buildingIndex] != "Казарма" && arenaElements[buildingIndex] != "Башня") {
-                        buildBuilding(arenaElements, buildingIndex, "Казарма");
-                        st.gold -= 30;
-                    }
+                    temp = buildBuilding(arenaElements, buildingIndex, "Казарма");
+                    if (temp == 0)
+                        std::cout << "Неверный номер здания.\n";
+                    else
+                        st.gold -= temp;
                     clearScreen();
                 }
                 else
@@ -165,10 +176,11 @@ int main() {
                         std::cout << "Неверный ввод. Пожалуйста, введите число.\n";
                         std::cin.clear();
                     }
-                    if (arenaElements[buildingIndex] != "Казарма" && arenaElements[buildingIndex] != "Башня") {
-                        buildBuilding(arenaElements, buildingIndex, "Башня");
-                        st.gold -= 20;
-                    }
+                    temp = buildBuilding(arenaElements, buildingIndex, "Башня");
+                    if (temp == 0)
+                        std::cout << "Неверный номер здания.\n";
+                    else
+                        st.gold -= temp;
                     clearScreen();
                 }
                 else
@@ -181,14 +193,12 @@ int main() {
                     std::cout << "Неверный ввод. Пожалуйста, введите число.\n";
                     std::cin.clear();
                 }
-                if (arenaElements[buildingIndex] != "Пусто")
-                {
-                    st.gold += 10;
-                    buildBuilding(arenaElements, buildingIndex, "Пусто");
-                    clearScreen();
-                }
+                temp = buildBuilding(arenaElements, buildingIndex, "Пусто");
+                if (temp == 0)
+                    std::cout << "Неверный номер здания.\n";
                 else
-                    std::cout << "В выбраной ячейке ничего не построено";
+                    st.gold += temp;
+                clearScreen();
                 break;
             case 4:
                 std::cout << "Выберите заклинания: \n";
