@@ -1,0 +1,4 @@
+﻿  Server.cpp
+C:\Users\user\source\repos\Server\Server.cpp(57,17): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\user\source\repos\Server\Server.cpp(63,68): warning C4312: приведение типов: преобразование из "int" в "LPVOID" большего размера
+  Server.vcxproj -> C:\Users\user\source\repos\Server\x64\Debug\Server.exe

@@ -1,0 +1,4 @@
+﻿  Client2.cpp
+C:\Users\user\source\repos\Client2\Client2.cpp(47,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\user\source\repos\Client2\Client2.cpp(98,9): warning C4101: msg_size: неиспользованная локальная переменная
+  Client2.vcxproj -> C:\Users\user\source\repos\Server\x64\Debug\Client2.exe
