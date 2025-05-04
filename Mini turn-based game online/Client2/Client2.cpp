@@ -229,9 +229,9 @@ int main() {
                 break;
             case 5:
                 std::cout << "Ожидание другого игрока.\n";
-                playerInfo[0] = '0';
+                playerInfo[0] = '1';
                 playerInfo[1] = checkDamage(arenaElements);
-                playerInfo[2] = checkDefense(arenaElements);
+                playerInfo[3] = checkDefense(arenaElements);
                 st.gold += 20;
                 st.mana += 10;
                 flag = true;
