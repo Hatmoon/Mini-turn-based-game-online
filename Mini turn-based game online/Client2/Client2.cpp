@@ -6,7 +6,7 @@
 #pragma comment(lib, "ws2_32.lib")
 #pragma warning(disable: 4996)
 const int PORT = 12345;
-const char* SERVER_IP = "127.0.0.1"; // Use "127.0.0.1" for local testing
+const char* SERVER_IP = "127.0.0.1"; 
 SOCKET Connection;
 const int MAX_BUFFER_SIZE = 1024;
 char buffer[MAX_BUFFER_SIZE];
@@ -97,7 +97,7 @@ int main() {
     int choice, spell;
     int msg_size;
     bool flag = true;
-    std::vector<std::string> arenaElements(5, "Пусто"); // Arena with 5 empty slots
+    std::vector<std::string> arenaElements(5, "Пусто"); 
     int buildingIndex;
     WSAData wsaData;
     WORD DLLVersion = MAKEWORD(2, 1);
@@ -131,8 +131,6 @@ int main() {
             displayArena(st, arenaElements);
             std::cout << "Введите ваш выбор: ";
             std::cin >> choice;
-
-            // Validate input (check if the user entered a number)
             if (std::cin.fail()) {
                 std::cout << "Неверный ввод. Пожалуйста, введите число.\n";
                 std::cin.clear();
