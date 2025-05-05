@@ -74,7 +74,7 @@ void displayArena(const State& st, const std::vector<std::string>& arenaElements
         "5. Закончить ход\n";
 }
 int buildBuilding(std::vector<std::string>& arenaElements, int buildingIndex, const std::string& buildingName) {
-    if (buildingIndex >= 0 && buildingIndex < arenaElements.size() && arenaElements[buildingIndex] == "Пусто") {
+    if (buildingIndex >= 0 && buildingIndex < arenaElements.size() && arenaElements[buildingIndex] == "Пусто" && buildingName != "Пусто") {
         arenaElements[buildingIndex] = buildingName;
         if (buildingName == "Казарма")
             return 30;
