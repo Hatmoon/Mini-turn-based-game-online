@@ -13,7 +13,7 @@ char buffer[MAX_BUFFER_SIZE];
 std::string playerInfo;
 struct State {
     int hp = 100;
-    int mana = 0;
+    int mana = 100;
     int gold = 20;
 };
 void clearScreen() {
@@ -53,8 +53,7 @@ void displayArena(const State& st, const std::vector<std::string>& arenaElements
     std::cout << "Игра Castle Fight\n"
         "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"
         "|                                                              |\n"
-        "|   Замок(Хп: "<<st.hp <<")                                                | \n";
-
+        "|   Замок(Хп: " << st.hp << ")                                             |\n";
     for (const std::string& element : arenaElements) {
         std::cout << "|    " << element;
         for (size_t i = element.length(); i < 63; ++i) {
@@ -65,7 +64,6 @@ void displayArena(const State& st, const std::vector<std::string>& arenaElements
     std::cout << "----------------------------------------------------------------\n"
         "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
         "\n мана: " << st.mana << "\n золото : " << st.gold << std::endl;
-
     std::cout << "Выбери что ты хочешь сделать в свой ход:\n"
         "1. Построить казарму (30 золота)\n"
         "2. Построить башню (20 золота)\n"
@@ -105,7 +103,7 @@ int main() {
     int choice, spell, temp;
     int msg_size;
     bool flag = true;
-    std::vector<std::string> arenaElements(5, "Пусто"); // Arena with 5 empty slots
+    std::vector<std::string> arenaElements(5, "Пусто");
     int buildingIndex;
     WSAData wsaData;
     WORD DLLVersion = MAKEWORD(2, 1);
@@ -131,24 +129,20 @@ int main() {
         {
             while (flag)
             {
-                char attack = playerInfo[1];
-                char def = playerInfo[3];
-                st.hp -= abs((std::atoi(&attack) - std::atoi(&def)));
+                char attack = std::atoi(&playerInfo[1]);
+                char def = std::atoi(&playerInfo[2]);
+                st.hp -= abs((attack - def));
                 flag = false;
             }
             displayArena(st, arenaElements);
             std::cout << "Введите ваш выбор: ";
             std::cin >> choice;
-
-            // Validate input (check if the user entered a number)
             if (std::cin.fail()) {
                 std::cout << "Неверный ввод. Пожалуйста, введите число.\n";
                 std::cin.clear();
             }
-
-            if (choice < 1 || choice > 4) {
-                std::cout << "Неверный выбор. Пожалуйста, выберите опцию из списка.\n";;
-            }
+            if (choice < 1 || choice > 5)
+                std::cout << "Неверный выбор. Пожалуйста, выберите опцию из списка.\n";
             clearScreen();
             switch (choice) {
             case 1:
